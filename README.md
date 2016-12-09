@@ -10,4 +10,4 @@ When run inside Linux-for-Android, the paikka.py (Py4A) reads the GPS for you. I
 
 Swedes changed their tile-provider format to something else, so phuck you.
 
-Those png-files are supposed to be in the subdirectory "static", but this system does not allow it.
+
