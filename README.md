@@ -9,3 +9,5 @@ Cannot do the Finnish National Grid to Google Tile translation, because I am stu
 When run inside Linux-for-Android, the paikka.py (Py4A) reads the GPS for you. I had some weird problems when running Py4A only and roaming in Norway.
 
 Swedes changed their tile-provider format to something else, so phuck you.
+
+Those png-files are supposed to be in the subdirectory "static", but this system does not allow it.
