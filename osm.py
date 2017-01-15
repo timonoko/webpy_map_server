@@ -52,7 +52,7 @@ class datoja:
     zoomi=7
     korkeus=0.1
     leveys=0.1
-    kartta=['osm','google','eniro','kapsi','noka','orto','sailm','gsat','bing','norja','norsjo','svesjo','cycle','viro','seamap']
+    kartta=['osm','google','kapsi','ilma','eniro','sailm','bing','norja','norsjo','svesjo','gsat','cycle','viro','noka','orto','seamap']
     nykyinen=0
     online = "OFFLINE"
     seamap=False
@@ -144,6 +144,8 @@ def tiili(x,y,zoom,xo,yo,xd,yd):
 	return 'http://map.eniro.com/geowebcache/service/tms1.0.0/nautical/%d/%d/%d.png'%(zoom, x, y2)
     if ny == 'kapsi':
         return 'http://tiles.kartat.kapsi.fi/peruskartta/%d/%d/%d.png'%(zoom, x, y)
+    if ny == 'ilma':
+        return 'http://tiles.kartat.kapsi.fi/ortokuva/%d/%d/%d.png'%(zoom, x, y)
     if ny == 'noka':
         import kkj
         bottomX,bottomY = kkj.WGS2KKJ(num2deg(x,y-2,zoom))
