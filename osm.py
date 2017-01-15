@@ -263,7 +263,8 @@ def palauta_paska(refresh=False):
                         f.write('%d %d %d'%(x, y, zoom))
                         f.write('</div>\n')
                         f.write('<div style="position: absolute; left: %d ; top: %d ">'%(tile_size*(1+xd),tile_size*(1+yd)))
-                        f.write('<img src="'+nimi+'?xxx=987878787">')
+#                        f.write('<img src="'+nimi+'?xxx=987878787">')
+                        f.write('<img src="%s?xxx=%d">'%(nimi,int(10000*time.clock())))
                         f.write('</div>\n')
                     elif xd in [-1,2] and yd in [1,4]:
                         d = (3*256-800)/2
