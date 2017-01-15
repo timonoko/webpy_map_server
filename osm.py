@@ -144,6 +144,11 @@ def tiili(x,y,zoom,xo,yo,xd,yd):
 	return 'http://map.eniro.com/geowebcache/service/tms1.0.0/nautical/%d/%d/%d.png'%(zoom, x, y2)
     if ny == 'kapsi':
         return 'http://tiles.kartat.kapsi.fi/peruskartta/%d/%d/%d.png'%(zoom, x, y)
+#        if y % 2 == 0:
+#           return 'https://tile1.kapsi.fi/mapcache/peruskartta_3067/%d/%d/%d.png'%(zoom, x, y)
+#        else:
+#           return 'https://tile2.kapsi.fi/mapcache/peruskartta_3067/%d/%d/%d.png'%(zoom, x, y)
+
     if ny == 'ilma':
         return 'http://tiles.kartat.kapsi.fi/ortokuva/%d/%d/%d.png'%(zoom, x, y)
     if ny == 'noka':
@@ -258,7 +263,7 @@ def palauta_paska(refresh=False):
                         f.write('%d %d %d'%(x, y, zoom))
                         f.write('</div>\n')
                         f.write('<div style="position: absolute; left: %d ; top: %d ">'%(tile_size*(1+xd),tile_size*(1+yd)))
-                        f.write('<img src="'+nimi+'">')
+                        f.write('<img src="'+nimi+'?xxx=987878787">')
                         f.write('</div>\n')
                     elif xd in [-1,2] and yd in [1,4]:
                         d = (3*256-800)/2
