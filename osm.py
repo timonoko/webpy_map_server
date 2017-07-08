@@ -142,8 +142,8 @@ def tiili(x,y,zoom,xo,yo,xd,yd):
     if ny == 'svesjo':
 	y2=math.pow(2,zoom)-y-1;
 	return 'http://map.eniro.com/geowebcache/service/tms1.0.0/nautical/%d/%d/%d.png'%(zoom, x, y2)
-#    if ny == 'kapsi':
-#        return 'http://tiles.kartat.kapsi.fi/peruskartta/%d/%d/%d.png'%(zoom, x, y)
+    if ny == 'kapsi':
+        return 'http://tiles.kartat.kapsi.fi/peruskartta/%d/%d/%d.png'%(zoom, x, y)
 #        if y % 2 == 0:
 #           return 'https://tile1.kapsi.fi/mapcache/peruskartta_3067/%d/%d/%d.png'%(zoom, x, y)
 #        else:
