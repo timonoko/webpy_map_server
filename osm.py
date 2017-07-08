@@ -57,6 +57,7 @@ class datoja:
     seamap=False
     gps=[]
     lue_uudestaan=False
+    kartta=['osm','google','kapsi','ilma','eniro','sailm','bing','norja','norsjo','svesjo','gsat','cycle','viro','noka','orto','seamap']
 
 def savedatoja():
     if datoja.latti<>60.0:
