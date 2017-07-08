@@ -52,7 +52,6 @@ class datoja:
     zoomi=7
     korkeus=0.1
     leveys=0.1
-    kartta=['osm','google','kapsi','ilma','eniro','sailm','bing','norja','norsjo','svesjo','gsat','cycle','viro','noka','orto','seamap']
     nykyinen=0
     online = "OFFLINE"
     seamap=False
@@ -110,10 +109,10 @@ def google2kartta(x):
 
 def tiili(x,y,zoom,xo,yo,xd,yd):
     ny = datoja.kartta[datoja.nykyinen]
-    if ny == "viro":
-        return 'http://lbs.nutiteq.ee/topo/%d/%d/%d.jpg' % (zoom, x, y)
-    if ny == "cycle":
-        return 'http://b.tile.opencyclemap.org/cycle/%d/%d/%d.png' % (zoom, x, y)
+#    if ny == "viro":
+#        return 'http://lbs.nutiteq.ee/topo/%d/%d/%d.jpg' % (zoom, x, y)
+#    if ny == "cycle":
+#        return 'http://b.tile.opencyclemap.org/cycle/%d/%d/%d.png' % (zoom, x, y)
     if ny == 'sailm': 
         y2=y
         if zoom==13:
@@ -130,8 +129,8 @@ def tiili(x,y,zoom,xo,yo,xd,yd):
     if ny == 'gsat':
         time.sleep(1)
         return 'http://khm.google.com/kh/v=113&x=%d&y=%d&z=%d' % (x, y, zoom)
-    if ny == 'norsjo': 
-        return 'http://opencache.statkart.no/gatekeeper/gk/gk.open_gmaps?layers=sjo_hovedkart2&zoom=%d&x=%d&y=%d' % (zoom, x, y)
+ #   if ny == 'norsjo': 
+ #       return 'http://opencache.statkart.no/gatekeeper/gk/gk.open_gmaps?layers=sjo_hovedkart2&zoom=%d&x=%d&y=%d' % (zoom, x, y)
     if ny == 'bing':
         import Tiles
         import random
@@ -142,43 +141,42 @@ def tiili(x,y,zoom,xo,yo,xd,yd):
     if ny == 'svesjo':
 	y2=math.pow(2,zoom)-y-1;
 	return 'http://map.eniro.com/geowebcache/service/tms1.0.0/nautical/%d/%d/%d.png'%(zoom, x, y2)
-    if ny == 'kapsi':
-        return 'http://tiles.kartat.kapsi.fi/peruskartta/%d/%d/%d.png'%(zoom, x, y)
+#    if ny == 'kapsi':
+#        return 'http://tiles.kartat.kapsi.fi/peruskartta/%d/%d/%d.png'%(zoom, x, y)
 #        if y % 2 == 0:
 #           return 'https://tile1.kapsi.fi/mapcache/peruskartta_3067/%d/%d/%d.png'%(zoom, x, y)
 #        else:
 #           return 'https://tile2.kapsi.fi/mapcache/peruskartta_3067/%d/%d/%d.png'%(zoom, x, y)
-
     if ny == 'ilma':
         return 'http://tiles.kartat.kapsi.fi/ortokuva/%d/%d/%d.png'%(zoom, x, y)
-    if ny == 'noka':
-        import kkj
-        bottomX,bottomY = kkj.WGS2KKJ(num2deg(x,y-2,zoom))
-        topX,topY = kkj.WGS2KKJ(num2deg(x+3,y+1,zoom))
-        return 'http://vanha.karttapaikka.fi/image?request=GetMap&bbox=%d,%d,%d,%d&scale=%d&width=800&height=800&srs=NLSFI:kkj&styles=normal&lang=FI&lmid=1179938105236' % (bottomY, bottomX, topY, topX, google2kartta(zoom))
-    if ny == 'orto':
-        import kkj
-        bottomX,bottomY = kkj.WGS2KKJ(num2deg(x,y-2,zoom))
-        topX,topY = kkj.WGS2KKJ(num2deg(x+3,y+1,zoom))
-        return 'http://vanha.karttapaikka.fi/image?request=GetMap&bbox=%d,%d,%d,%d&scale=%d&width=800&height=800&srs=NLSFI:kkj&styles=normal&lang=FI&lmid=1179938105236&mode=orto' % (bottomY, bottomX, topY, topX, google2kartta(zoom))
-    if ny in ['svedu','sveter']:
-        import swecoord
-        TILE_SIZE = 256
-        lat,lon=num2deg(xo,yo,zoom)
-        zoom1 = zoom
-        zoom = 17 - zoom1
-        if zoom<1:
-            zoom =1
-        yo,xo=swecoord.wgsToswe(lat,lon)
-        s=int((TILE_SIZE*2**zoom)*20/33.5)
-        xo=int(xo+xd*s)
-        yo=int(yo-yd*s)
-        yo2=int(yo-s)
-        xo2=int(xo+s)
-        if ny == 'svedu':
-            return 'http://kso.lantmateriet.se/wmsproxy/wmsproxy?LAYERS=topowebbkartan&SERVICE=WMS&REQUEST=GetMap&FORMAT=image/jpeg&SRS=EPSG:3006&BBOX=%d,%d,%d,%d&WIDTH=%d&HEIGHT=%d' % ( xo, yo2, xo2 , yo, TILE_SIZE, TILE_SIZE ) 
-        if ny == 'sveter':
-            return 'http://kso.lantmateriet.se/wmsproxy/wmsproxy?LAYERS=terrangkartan&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&STYLES=&EXCEPTIONS=application%%2Fvnd.ogc.se_inimage&FORMAT=image%%2Fjpeg&SRS=EPSG%%3A3006&BBOX=%d,%d,%d,%d&WIDTH=%d&HEIGHT=%d' % ( xo, yo2, xo2 , yo, TILE_SIZE, TILE_SIZE ) 
+#    if ny == 'noka':
+#        import kkj
+#        bottomX,bottomY = kkj.WGS2KKJ(num2deg(x,y-2,zoom))
+#        topX,topY = kkj.WGS2KKJ(num2deg(x+3,y+1,zoom))
+#        return 'http://vanha.karttapaikka.fi/image?request=GetMap&bbox=%d,%d,%d,%d&scale=%d&width=800&height=800&srs=NLSFI:kkj&styles=normal&lang=FI&lmid=1179938105236' % (bottomY, bottomX, topY, topX, google2kartta(zoom))
+#    if ny == 'orto':
+#        import kkj
+#        bottomX,bottomY = kkj.WGS2KKJ(num2deg(x,y-2,zoom))
+#       topX,topY = kkj.WGS2KKJ(num2deg(x+3,y+1,zoom))
+#        return 'http://vanha.karttapaikka.fi/image?request=GetMap&bbox=%d,%d,%d,%d&scale=%d&width=800&height=800&srs=NLSFI:kkj&styles=normal&lang=FI&lmid=1179938105236&mode=orto' % (bottomY, bottomX, topY, topX, google2kartta(zoom))
+#    if ny in ['svedu','sveter']:
+#        import swecoord
+#        TILE_SIZE = 256
+#        lat,lon=num2deg(xo,yo,zoom)
+#        zoom1 = zoom
+#        zoom = 17 - zoom1
+#        if zoom<1:
+#            zoom =1
+#        yo,xo=swecoord.wgsToswe(lat,lon)
+#        s=int((TILE_SIZE*2**zoom)*20/33.5)
+#        xo=int(xo+xd*s)
+#        yo=int(yo-yd*s)
+#        yo2=int(yo-s)
+#        xo2=int(xo+s)
+#        if ny == 'svedu':
+#            return 'http://kso.lantmateriet.se/wmsproxy/wmsproxy?LAYERS=topowebbkartan&SERVICE=WMS&REQUEST=GetMap&FORMAT=image/jpeg&SRS=EPSG:3006&BBOX=%d,%d,%d,%d&WIDTH=%d&HEIGHT=%d' % ( xo, yo2, xo2 , yo, TILE_SIZE, TILE_SIZE ) 
+#        if ny == 'sveter':
+#            return 'http://kso.lantmateriet.se/wmsproxy/wmsproxy?LAYERS=terrangkartan&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&STYLES=&EXCEPTIONS=application%%2Fvnd.ogc.se_inimage&FORMAT=image%%2Fjpeg&SRS=EPSG%%3A3006&BBOX=%d,%d,%d,%d&WIDTH=%d&HEIGHT=%d' % ( xo, yo2, xo2 , yo, TILE_SIZE, TILE_SIZE ) 
    
 
 def nappi(f,osoite,kuvio,x,y):
