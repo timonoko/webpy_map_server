@@ -137,11 +137,11 @@ def tiili(x,y,zoom,xo,yo,xd,yd):
         import random
         return 'http://a%d.ortho.tiles.virtualearth.net/tiles/a%s.jpeg?g=90' % (random.randint(0, 3),  Tiles.toMicrosoft(x,y,zoom))
     if ny == 'eniro':
-	y2=math.pow(2,zoom)-y-1;
-	return 'http://map.eniro.com/geowebcache/service/tms1.0.0/map/%d/%d/%d.png'%(zoom, x, y2)
+        y2=math.pow(2,zoom)-y-1;
+        return 'http://map.eniro.com/geowebcache/service/tms1.0.0/map/%d/%d/%d.png'%(zoom, x, y2)
     if ny == 'svesjo':
-	y2=math.pow(2,zoom)-y-1;
-	return 'http://map.eniro.com/geowebcache/service/tms1.0.0/nautical/%d/%d/%d.png'%(zoom, x, y2)
+        y2=math.pow(2,zoom)-y-1;
+        return 'http://map.eniro.com/geowebcache/service/tms1.0.0/nautical/%d/%d/%d.png'%(zoom, x, y2)
     if ny == 'kapsi':
         return 'http://tiles.kartat.kapsi.fi/peruskartta/%d/%d/%d.png'%(zoom, x, y)
 #        if y % 2 == 0:
@@ -239,11 +239,18 @@ def palauta_paska(refresh=False):
                 nimi = jemma+'%d%d%d.png'%(datoja.tile_y,yd,xd)
             else:    
                 nimi = jemma+'%d.png'%y
-            if  (not os.path.exists(nimi)) or datoja.lue_uudestaan:
+            if  (not os.path.exists(nimi)) or datoja.lue_uudestaan :
                 if datoja.online == 'online':
                     if (not (datoja.kartta[datoja.nykyinen] in ['noka','orto']) or (xd == -1 and yd == 1)) and abs(xd)<2 and abs(yd)<2:
-                        print 'urlretrieve'
-                        urllib.urlretrieve(tiili(x,y,zoom,datoja.tile_x,datoja.tile_y,xd,yd) , nimi )
+                        erheita=2
+                        while erheita>0:
+                            print 'urlretrieve ',nimi," ",erheita
+                            urllib.urlretrieve(tiili(x,y,zoom,datoja.tile_x,datoja.tile_y,xd,yd) , nimi )
+                            if os.stat(nimi).st_size>1000:
+                                erheita=0
+                            else:
+                                time.sleep(1)
+                                erheita=erheita-1
             if datoja.seamap:
                 jemma_sm='static/%s/%d/%d/'%('seamap',zoom,x)
                 if not os.path.exists(jemma_sm):
@@ -254,7 +261,8 @@ def palauta_paska(refresh=False):
                         print 'urlretrieve'
                         urllib.urlretrieve('http://t1.openseamap.org/seamark/%d/%d/%d.png'%(zoom,x,y) , nimi_sm )
             if  os.path.exists(nimi):
-                if datoja.kartta[datoja.nykyinen]=='gsat' and os.stat(nimi).st_size<2000:
+#                if datoja.kartta[datoja.nykyinen]=='gsat' and os.stat(nimi).st_size<2000:
+                if  os.stat(nimi).st_size<1000:
                     os.remove(nimi)
                 else:
                     if not (datoja.kartta[datoja.nykyinen] in ['noka','orto']):
