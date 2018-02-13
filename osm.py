@@ -126,7 +126,8 @@ def tiili(x,y,zoom,xo,yo,xd,yd):
     if ny == 'norja': 
         return  'http://opencache.statkart.no/gatekeeper/gk/gk.open_gmaps?layers=topo2&zoom=%d&x=%d&y=%d' % (zoom, x, y)
     if ny == 'google': 
-        return 'http://mt.google.com/vt/v=w2.97&hl=en&x=%d&y=%d&z=%d' % (x, y, zoom)
+        return 'https://mts1.google.com/vt/x=%d&y=%d&z=%d' % (x, y, zoom)
+#        return 'http://mt.google.com/vt/v=w2.97&hl=en&x=%d&y=%d&z=%d' % (x, y, zoom)
     if ny == 'gsat':
         time.sleep(1)
         return 'http://khm.google.com/kh/v=113&x=%d&y=%d&z=%d' % (x, y, zoom)
@@ -246,7 +247,7 @@ def palauta_paska(refresh=False):
                         while erheita>0:
                             print 'urlretrieve ',nimi," ",erheita
                             urllib.urlretrieve(tiili(x,y,zoom,datoja.tile_x,datoja.tile_y,xd,yd) , nimi )
-                            if os.stat(nimi).st_size>1000:
+                            if os.stat(nimi).st_size>100:
                                 erheita=0
                             else:
                                 time.sleep(1)
@@ -262,7 +263,7 @@ def palauta_paska(refresh=False):
                         urllib.urlretrieve('http://t1.openseamap.org/seamark/%d/%d/%d.png'%(zoom,x,y) , nimi_sm )
             if  os.path.exists(nimi):
 #                if datoja.kartta[datoja.nykyinen]=='gsat' and os.stat(nimi).st_size<2000:
-                if  os.stat(nimi).st_size<1000:
+                if  os.stat(nimi).st_size<100:
                     os.remove(nimi)
                 else:
                     if not (datoja.kartta[datoja.nykyinen] in ['noka','orto']):
