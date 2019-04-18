@@ -8,11 +8,14 @@ import web,os
 
 web.config.debug=False
 
-if os.path.exists('/sdcard') and not os.path.exists('/external_sd'):
+termux=True
+
+if os.path.exists('/sdcard') and not os.path.exists('/external_sd') and not termux:
     androidi=True
 #    os.chdir('/sdcard/sl4a/scripts')
 else:
     androidi=False
+
 
 if androidi:
     try:
@@ -57,7 +60,7 @@ class datoja:
     seamap=False
     gps=[]
     lue_uudestaan=False
-    kartta=['osm','google','kapsi','ilma','eniro','sailm','bing','norja','svesjo','gsat','seamap']
+    kartta=['osm','google','kapsi','ilma','eniro','sailm','bing','norja','svesjo','gsat','seamap','trafic']
 
 def savedatoja():
     if datoja.latti<>60.0:
@@ -67,6 +70,13 @@ def savedatoja():
     if datoja.bookmarks<>[]:
         f=open("static/bookmarks","w")
         f.write(str(datoja.bookmarks))
+        f.close()
+    if datoja.latti<>60.0:
+        f=open("static/marinetraffic.html","w")
+        f.write("<head>\
+  <meta http-equiv='refresh' content='0;\
+  URL=https://www.marinetraffic.com/en/ais/home/centerx:%f/centery:%f/zoom:%d'>\
+  </head>\n"%(datoja.longi,datoja.latti,datoja.zoomi-1))
         f.close()
 
 def loaddatoja():
@@ -380,6 +390,11 @@ class goto:
 datoja.urls+=('/kartta_(.*)','kartta')
 class kartta:
     def GET(self,s):
+        if datoja.kartta[int(s)]=='trafic':
+            return "<head>\
+  <meta http-equiv='refresh' content='0;\
+  URL=https://www.marinetraffic.com/en/ais/home/centerx:%f/centery:%f/zoom:%d'>\
+  </head>\n"%(datoja.longi,datoja.latti,datoja.zoomi-1)
         if datoja.kartta[int(s)]=='seamap':
 	    datoja.seamap = not datoja.seamap
 	else:
@@ -463,6 +478,14 @@ datoja.urls+=('/gps','gps')
 class gps:
     def GET(self):
         print "GPS.."
+        if termux:
+            os.system("termux-location > loca.txt")
+            f = open("loca.txt", "r")
+            n=eval(f.read())
+	    datoja.gps = n
+            datoja.latti = n['latitude']
+            datoja.longi = n['longitude']
+            return palauta_paska(True)
         if androidi:
             droid.startLocating()
             time.sleep(5)
