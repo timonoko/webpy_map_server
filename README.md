@@ -9,3 +9,5 @@ When run inside Linux-for-Android, the paikka.py (Py4A) reads the GPS for you. I
 Swedes (and Normen) changed their tile-provider format to something else, so phuck you.
 
 Main operating enviroment is now Termux, Qpython fails at urlretrieve.
+
+Opera is the best client. Shortcut to http://0.0.0.0:8080 goes fullscreen.
