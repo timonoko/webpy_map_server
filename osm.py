@@ -8,7 +8,7 @@ import web,os
 
 web.config.debug=False
 
-termux=True
+termux=True # Guessing the operating environment is too difficult. GPS is the only issue now.
 
 if os.path.exists('/sdcard') and not os.path.exists('/external_sd') and not termux:
     androidi=True
