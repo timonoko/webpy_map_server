@@ -11,3 +11,6 @@ Swedes (and Normen) changed their tile-provider format to something else, so phu
 Main operating enviroment is now Termux, Qpython fails at urlretrieve.
 
 Opera is the best client. Shortcut to http://0.0.0.0:8080 goes fullscreen.
+
+<img href="Screenshot_2019-04-24-08-18-34.png" >
+
