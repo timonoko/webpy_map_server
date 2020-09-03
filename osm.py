@@ -1,3 +1,4 @@
+
 # coding=iso-8859-1
 
 import os
@@ -8,7 +9,7 @@ import web,os
 
 web.config.debug=False
 
-termux=True # Guessing the operating environment is too difficult. GPS is the only issue now.
+termux=True
 
 if os.path.exists('/sdcard') and not os.path.exists('/external_sd') and not termux:
     androidi=True
@@ -60,8 +61,17 @@ class datoja:
     seamap=False
     gps=[]
     lue_uudestaan=False
-    kartta=['osm','google','kapsi','ilma','eniro','sailm','bing','norja','svesjo','gsat','seamap','traffic']
+    abc='a'
+    kartta=['google','kapsi','ilma','eniro','sailm','bing','norja','svesjo','seamap','trafic','cycle','osm']
 
+def doabc():
+    if datoja.abc=='a':
+        datoja.abc='b'
+    if datoja.abc=='b':
+        datoja.abc='c'
+    if datoja.abc=='c':
+        datoja.abc='a'  
+    
 def savedatoja():
     if datoja.latti<>60.0:
         f=open("static/datoja","w")
@@ -119,6 +129,7 @@ def google2kartta(x):
 
 
 def tiili(x,y,zoom,xo,yo,xd,yd):
+    doabc()
     ny = datoja.kartta[datoja.nykyinen]
 #    if ny == "viro":
 #        return 'http://lbs.nutiteq.ee/topo/%d/%d/%d.jpg' % (zoom, x, y)
@@ -132,7 +143,9 @@ def tiili(x,y,zoom,xo,yo,xd,yd):
             y2=11639-y+4744
         return  'http://mapserver.sailmate.fi/fi/images/%d/%d/%d.png'%(zoom,x,y2)
     if ny == 'osm': 
-        return  'http://b.tile.openstreetmap.org/%d/%d/%d.png'%(zoom,x,y)
+        return  'http://%s.tile.openstreetmap.de/%d/%d/%d.png'%(datoja.abc,zoom,x,y)
+    if ny == 'cycle': 
+        return  'http://%s.tile.thunderforest.com/cycle/%d/%d/%d.png?apikey=26202fd82b624164a13dbe93fea33a04'%(datoja.abc,zoom,x,y)
     if ny == 'norja': 
         return  'http://opencache.statkart.no/gatekeeper/gk/gk.open_gmaps?layers=topo2&zoom=%d&x=%d&y=%d' % (zoom, x, y)
     if ny == 'google': 
@@ -479,7 +492,7 @@ class gps:
     def GET(self):
         print "GPS.."
         if termux:
-            os.system("termux-location > loca.txt")
+            os.system("termux-location -p gps > loca.txt")
             f = open("loca.txt", "r")
             n=eval(f.read())
 	    datoja.gps = n
