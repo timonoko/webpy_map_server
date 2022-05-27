@@ -12,7 +12,7 @@ Main operating enviroment is now Termux, Qpython fails at urlretrieve.
 
 Opera is the best client. Shortcut to http://0.0.0.0:8080 goes fullscreen.
 
-Interface is weird, but wet-finger friendly. It was originally made for python-for-symbian with E52 buttons.
+Interface is weird, but wet-finger friendly. It was originally made for python-for-symbian and E52 buttons.
 
 <img src="Screenshot_2019-04-24-08-18-34.png" >
 
